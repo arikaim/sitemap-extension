@@ -1,0 +1,13 @@
+{
+    "title": {
+        "content": "View",
+        "icon": "list"              
+    },
+    "columns": {
+        "url": "Url",
+        "page": "Pages",
+        "pattern": "Route Pattern",
+        "extension": "Extension",
+        "actions": "Actions"
+    }   
+}

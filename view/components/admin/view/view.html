@@ -1,0 +1,21 @@
+<div class="ui stackable text menu">
+    <div class="item right floated">       
+        {{ component('components:paginator.dropdown',{ namespace: 'sitemap' }) }}
+    </div>
+</div>
+<table class="ui compact stackable borderless basic table mt-2">
+    <thead>
+        <tr class="table-head">                
+            <th class="collapsing one wide">{{ columns.actions }}</th>
+            <th class="four wide">{{ columns.pattern }}</th>
+            <th class="one wide">{{ columns.page }}</th>
+            <th class="collapsing ten wide" >{{ columns.extension }}</th>                 
+        </tr>
+    </thead>
+    <tbody id="page_rows" component="sitemap::admin.view.rows" namespace="sitemap">
+        {{ component('sitemap::admin.view.rows') }}   
+    </tbody>  
+</table>
+<div class="mt-2">
+    {{ component('components:paginator',{ namespace: 'sitemap' }) }}
+</div>

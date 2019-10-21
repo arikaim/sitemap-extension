@@ -1,0 +1,24 @@
+{% component 'components:view.rows' %}
+
+    {% set pages = createModel('Routes').where('type','=',1) %}
+    {% set items = paginate(pages,'sitemap') %}
+   
+    {% for item in items.getItems() %}
+    <tr id="{{ item.uuid }}">
+        <td>
+            <div class="ui basic mini icon button relations-button" uuid="{{ item.uuid }}" {{ buttons.relations.title|attr('title') }}>
+                <i class="icon linkify"></i>                   
+            </div>
+        </td>
+        <td>
+           {{ url('',true) }}{{ item.pattern }}
+        </td>
+        <td>
+           
+        </td>
+        <td>
+            {{ item.extension_name }}
+        </td>
+    </tr>
+    {% endfor %}
+{% endcomponent %}

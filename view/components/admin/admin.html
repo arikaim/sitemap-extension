@@ -1,0 +1,10 @@
+{%  set items = [
+        { id: 'view_pages', icon: 'list', title: labels.pages, active: true, content: 'sitemap::admin.view' }
+    ] 
+%}
+
+{{  component('components:tabs',{ 
+        items: items,
+        content: { component: 'sitemap::admin.view', params: { } } 
+    })
+}}

@@ -1,0 +1,18 @@
+{
+    "title": "Sitemap",
+    "icon": "sitemap",
+    "class": "Sitemap",
+    "type": "user",
+    "description": "Sitemap.",
+    "short_description": "Manage Sitemap.",
+    "version": "1.0.0",
+    "position": "2",
+    "repository": "https://github.com/arikaim/sitemap-extension.git",
+    "admin_menu": {        
+        "title": "Sitemap",
+        "icon": "sitemap",
+        "page_title": "Sitemap",
+        "page_icon": "sitemap",       
+        "component": "sitemap::admin"
+    }
+}

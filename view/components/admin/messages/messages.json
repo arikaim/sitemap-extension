@@ -1,0 +1,6 @@
+{
+    "delete": "Page url was deleted successfully.",   
+    "errors": {       
+        "delete": "Can't delete page url"        
+    }
+}
