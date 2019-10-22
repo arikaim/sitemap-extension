@@ -23,13 +23,15 @@ class Sitemap extends Extension
     */
     public function install()
     {  
-        // {ages
+        // Page route
         $this->addPageRoute('/sitemap.xml','SitemapPage','sitemap');   
         // Control Panel
         //$this->addApiRoute('POST','/api/tags/admin/add','SitemapControlPanel','add','session');   
         // Create db tables
         $this->createDbTable('SitemapOptionsSchema');
-    
+        // Events
+        $this->registerEvent('sitemap.pages','Trigger on show sitemap.xml page');
+        
         return true;
     }   
 

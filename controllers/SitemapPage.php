@@ -11,6 +11,7 @@ namespace Arikaim\Extensions\Sitemap\Controllers;
 
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Controllers\ApiController;
+use Arikaim\Core\Arikaim;
 
 /**
  *  Sitemap page controller
@@ -27,6 +28,18 @@ class SitemapPage extends ApiController
      */
     public function Sitemap($request, $response, $data)
     {             
-       
+
+        /// ROuter pathFor  ???
+        $routes = Model::Routes()->where('type','=',1)->all();
+        
+        foreach($item in $routes) {
+
+        }
+    }
+
+
+    public function hasPlaceholder($route_pattern)
+    {
+
     }
 }
