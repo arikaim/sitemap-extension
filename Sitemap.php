@@ -24,7 +24,7 @@ class Sitemap extends Extension
     public function install()
     {  
         // Page route
-        $this->addPageRoute('/sitemap.xml','SitemapPage','sitemap');   
+        $this->addPageRoute('/sitemap.xml','SitemapPage','sitemapXML',null,null,null,false);   
         // Control Panel
         //$this->addApiRoute('POST','/api/tags/admin/add','SitemapControlPanel','add','session');   
         // Create db tables

@@ -10,13 +10,13 @@
 namespace Arikaim\Extensions\Sitemap\Controllers;
 
 use Arikaim\Core\Db\Model;
-use Arikaim\Core\Controllers\ApiController;
-use Arikaim\Core\Arikaim;
+use Arikaim\Core\Controllers\Controller;
+use Arikaim\Core\View\Html\HtmlComponent;
 
 /**
  *  Sitemap page controller
  */
-class SitemapPage extends ApiController
+class SitemapPage extends Controller
 {
     /**
      * Sitemap page
@@ -26,20 +26,30 @@ class SitemapPage extends ApiController
      * @param Validator $data
      * @return void
      */
-    public function Sitemap($request, $response, $data)
-    {             
-
-        /// ROuter pathFor  ???
-        $routes = Model::Routes()->where('type','=',1)->all();
-        
-        foreach($item in $routes) {
-
-        }
+    public function sitemapXML($request, $response, $data)
+    {                   
+        $pages = $this->getPageRoutes();
+        $xml = HtmlComponent::loadComponent('sitemap::sitemap.xml',['pages' => $pages]);
+       
+        return $this->writeXml($response,$xml);    
     }
 
-
-    public function hasPlaceholder($route_pattern)
+    /**
+     * Get page(s) url list for each page route 
+     *
+     * @return array
+     */
+    public function getPageRoutes()
     {
-
+        $pages = [];
+        $sitemap = Model::SitemapOptions('sitemap');
+        $routes = Model::Routes()->getPageRoutesQuery(null,1)->get();
+        
+        foreach ($routes as $route) {
+            $result = $sitemap->getRoutePages($route);
+            $pages = array_merge($pages,$result);                
+        }
+      
+        return $pages;
     }
 }

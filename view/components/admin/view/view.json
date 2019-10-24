@@ -3,6 +3,12 @@
         "content": "View",
         "icon": "list"              
     },
+    "buttons": {
+        "view": "Sitemap"
+    },
+    "labels": {
+        "total": "Total Pages"
+    },
     "columns": {
         "url": "Url",
         "page": "Pages",

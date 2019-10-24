@@ -1,4 +1,17 @@
+{% set sitemap = createModel('SitemapOptions','sitemap') %}
+<div class="mt-4">
+        <div class="ui teal mini horizontal statistic">
+                <div class="value">{{ sitemap.getTotalPageRoutes() }}</div>
+                <div class="label">{{ labels.total }}</div>
+            </div> 
+</div>
 <div class="ui stackable text menu">
+    <div class="item left floated">   
+        <a class="ui basic mini button" href="{{ url('sitemap.xml',true) }}" target="_blank">
+            <i class="rss square icon"></i>
+            {{ buttons.view }}
+        </a>    
+    </div>
     <div class="item right floated">       
         {{ component('components:paginator.dropdown',{ namespace: 'sitemap' }) }}
     </div>

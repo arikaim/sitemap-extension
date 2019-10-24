@@ -1,5 +1,5 @@
 {% component 'components:view.rows' %}
-
+    {% set sitemap = createModel('SitemapOptions','sitemap') %}
     {% set pages = createModel('Routes').where('type','=',1) %}
     {% set items = paginate(pages,'sitemap') %}
    
@@ -11,10 +11,11 @@
             </div>
         </td>
         <td>
-           {{ url('',true) }}{{ item.pattern }}
+           {{ url(item.pattern,true) }}
         </td>
         <td>
-           
+           {% set pages = sitemap.getRoutePages(item) %}
+           {{ pages|length }}
         </td>
         <td>
             {{ item.extension_name }}

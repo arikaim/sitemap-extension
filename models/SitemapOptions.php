@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 use Arikaim\Core\Traits\Db\Uuid;
 use Arikaim\Core\Traits\Db\Find;
 use Arikaim\Core\Traits\Db\Options;
+use Arikaim\Core\Arikaim;
+use Arikaim\Core\Db\Model as DbModel;
 
 class SitemapOptions extends Model  
 {
@@ -35,4 +37,40 @@ class SitemapOptions extends Model
     ];
     
     public $timestamps = false;
+
+    /**
+     * Get route pages list
+     *
+     * @param Model $route
+     * @return array
+     */
+    public function getRoutePages($route)
+    {
+        $pages = [];
+        if (empty($route->extension_name) == false) {
+            $result = Arikaim::event()->trigger('sitemap.pages',$route->toArray(),false,$route->extension_name);
+            if (is_array($result) == true) {
+                foreach ($result as $list) {                       
+                    $pages = array_merge($pages,$list);
+                }                  
+            }
+        } else { 
+            $pages[] = $route->getRouteUrl();
+        } 
+        
+        return $pages;
+    }
+
+    public function getTotalPageRoutes()
+    {
+        $pages = [];      
+        $routes = DbModel::Routes()->getPageRoutesQuery(null,1)->get();
+        
+        foreach ($routes as $route) {
+            $result = $this->getRoutePages($route);
+            $pages = array_merge($pages,$result);                
+        }
+      
+        return count($pages);
+    }
 }
