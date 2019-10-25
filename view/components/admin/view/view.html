@@ -1,13 +1,6 @@
-{% set sitemap = createModel('SitemapOptions','sitemap') %}
-<div class="mt-4">
-        <div class="ui teal mini horizontal statistic">
-                <div class="value">{{ sitemap.getTotalPageRoutes() }}</div>
-                <div class="label">{{ labels.total }}</div>
-            </div> 
-</div>
 <div class="ui stackable text menu">
     <div class="item left floated">   
-        <a class="ui basic mini button" href="{{ url('sitemap.xml',true) }}" target="_blank">
+        <a class="ui basic button" href="{{ url('sitemap.xml',true) }}" target="_blank">
             <i class="rss square icon"></i>
             {{ buttons.view }}
         </a>    
@@ -18,11 +11,13 @@
 </div>
 <table class="ui compact stackable borderless basic table mt-2">
     <thead>
-        <tr class="table-head">                
-            <th class="collapsing one wide">{{ columns.actions }}</th>
-            <th class="four wide">{{ columns.pattern }}</th>
+        <tr class="table-head">                          
+            <th class="ten wide">{{ columns.pattern }}</th>
             <th class="one wide">{{ columns.page }}</th>
-            <th class="collapsing ten wide" >{{ columns.extension }}</th>                 
+            <th class="collapsing one wide">{{ columns.lastmod }}</th>
+            <th class="collapsing one wide">{{ columns.changefreq }}</th>
+            <th class="collapsing one wide">{{ columns.priority }}</th>
+            <th class="collapsing right floated">{{ columns.extension }}</th>                 
         </tr>
     </thead>
     <tbody id="page_rows" component="sitemap::admin.view.rows" namespace="sitemap">

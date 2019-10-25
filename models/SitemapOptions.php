@@ -17,6 +17,9 @@ use Arikaim\Core\Traits\Db\Options;
 use Arikaim\Core\Arikaim;
 use Arikaim\Core\Db\Model as DbModel;
 
+/**
+ * Sitemap options class
+ */
 class SitemapOptions extends Model  
 {
     use Uuid,       
@@ -61,8 +64,18 @@ class SitemapOptions extends Model
         return $pages;
     }
 
+    /**
+     * Get total pages 
+     *
+     * @return integer
+     */
     public function getTotalPageRoutes()
     {
+        $total = Arikaim::cache()->fetch('sitemap.total.pages');
+        if (empty($total) == false) {
+            return $total;
+        }
+
         $pages = [];      
         $routes = DbModel::Routes()->getPageRoutesQuery(null,1)->get();
         
@@ -70,7 +83,8 @@ class SitemapOptions extends Model
             $result = $this->getRoutePages($route);
             $pages = array_merge($pages,$result);                
         }
-      
+        Arikaim::cache()->save('sitemap.total.pages',count($pages),2);
+
         return count($pages);
     }
 }

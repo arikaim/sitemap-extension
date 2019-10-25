@@ -25,13 +25,14 @@ class Sitemap extends Extension
     {  
         // Page route
         $this->addPageRoute('/sitemap.xml','SitemapPage','sitemapXML',null,null,null,false);   
-        // Control Panel
-        //$this->addApiRoute('POST','/api/tags/admin/add','SitemapControlPanel','add','session');   
         // Create db tables
         $this->createDbTable('SitemapOptionsSchema');
         // Events
         $this->registerEvent('sitemap.pages','Trigger on show sitemap.xml page');
-        
+        // Options
+        $this->createOption('sitemap.changefreq','weekly');
+        $this->createOption('sitemap.priority','1.0');
+
         return true;
     }   
 

@@ -1,15 +1,12 @@
 {% component 'components:view.rows' %}
+    {% set changefreq = getOption('sitemap.changefreq','weekly') %}
+    {% set priority = getOption('sitemap.priority','1.0') %}
     {% set sitemap = createModel('SitemapOptions','sitemap') %}
     {% set pages = createModel('Routes').where('type','=',1) %}
     {% set items = paginate(pages,'sitemap') %}
    
     {% for item in items.getItems() %}
-    <tr id="{{ item.uuid }}">
-        <td>
-            <div class="ui basic mini icon button relations-button" uuid="{{ item.uuid }}" {{ buttons.relations.title|attr('title') }}>
-                <i class="icon linkify"></i>                   
-            </div>
-        </td>
+    <tr id="{{ item.uuid }}">        
         <td>
            {{ url(item.pattern,true) }}
         </td>
@@ -17,9 +14,10 @@
            {% set pages = sitemap.getRoutePages(item) %}
            {{ pages|length }}
         </td>
-        <td>
-            {{ item.extension_name }}
-        </td>
+        <td>{{ today()|dateFormat }}</td>
+        <td>{{ changefreq }}</td>
+        <td>{{ priority }}</td>
+        <td>{{ item.extension_name }}</td>
     </tr>
     {% endfor %}
 {% endcomponent %}
