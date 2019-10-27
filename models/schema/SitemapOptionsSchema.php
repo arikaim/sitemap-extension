@@ -21,7 +21,7 @@ class SitemapOptionsSchema extends Schema
      *
      * @var string
      */
-    protected $table_name = "sitemap_options";
+    protected $tableName = "sitemap_options";
 
     /**
      * Create table

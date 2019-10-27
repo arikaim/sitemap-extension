@@ -9,9 +9,7 @@
 */
 namespace Arikaim\Extensions\Sitemap\Controllers;
 
-use Arikaim\Core\Db\Model;
 use Arikaim\Core\Controllers\ApiController;
-use Arikaim\Core\FileSystem\File;
 
 /** 
  *  Sitemap contro panel api controller
@@ -19,22 +17,12 @@ use Arikaim\Core\FileSystem\File;
 class SitemapControlPanel extends ApiController
 {
     /**
-     *  
+     * Init controller
      *
-     * @param object $request
-     * @param object $response
-     * @param Validator $data
-     * @return object
+     * @return void
      */
-    public function moveToTrash($request, $response, $data)
+    public function init()
     {
-        $this->requireControlPanelPermission();
-
-        $this->onDataValid(function($data) {      
-           
-        });
-        $data->validate();
-
-        return $this->getResponse();
+        $this->loadMessages('category::admin.messages');
     }
 }

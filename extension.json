@@ -5,7 +5,7 @@
     "type": "user",
     "description": "Sitemap.",
     "short_description": "Manage Sitemap.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "position": "2",
     "repository": "https://github.com/arikaim/sitemap-extension.git",
     "admin_menu": {        

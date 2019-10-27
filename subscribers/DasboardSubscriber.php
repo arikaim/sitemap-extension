@@ -20,13 +20,10 @@ class DasboardSubscriber extends EventSubscriber implements EventSubscriberInter
     /**
      * Constructor
      *
-     * @param string $event_name
-     * @param string|null $extension_name
-     * @param integer $priority
      */
-    public function __construct($event_name = null, $extension_name = null, $priority = 0)
+    public function __construct()
     {       
-        $this->subscribe('dashboard.get.items',$extension_name,$priority);
+        $this->subscribe('dashboard.get.items');
     }
     
     /**

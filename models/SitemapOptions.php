@@ -26,6 +26,11 @@ class SitemapOptions extends Model
         Options,
         Find;
        
+    /**
+     * Table name
+     *
+     * @var string
+     */
     protected $table = "sitemap_options";
 
     protected $fillable = [
