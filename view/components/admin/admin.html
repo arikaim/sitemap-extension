@@ -1,11 +1,11 @@
 {%  set items = [
-        { id: 'view_pages', icon: 'list', title: labels.pages, active: true, content: 'sitemap::admin.view' }
+        { id: 'view_pages', icon: 'list', title: labels.pages, active: true, component: 'sitemap::admin.view' }
     ] 
 %}
 
 {{  component('components:tabs',{ 
         items: items,
         menu: { component: 'system:admin.extensions.menu.actions', extension: 'sitemap' },
-        content: { component: 'sitemap::admin.view', params: { } } 
+        content: { component: 'sitemap::admin.view' } 
     })
 }}

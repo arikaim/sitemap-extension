@@ -2,7 +2,7 @@
  *  Arikaim
  *  
  *  @copyright  Copyright (c) Konstantin Atanasov <info@arikaim.com>
- *  @license    http://www.arikaim.com/license.html
+ *  @license    http://www.arikaim.com/license
  *  http://www.arikaim.com
  * 
  *  Extension: Sitemap
@@ -17,7 +17,7 @@ function SitemapControlPanel() {
     };
  
     this.init = function() {    
-       
+        arikaim.ui.tab();
     };
 }
 
