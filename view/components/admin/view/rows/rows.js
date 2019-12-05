@@ -1,3 +1,5 @@
 $(document).ready(function() {
-    sitemapView.initRows();
+    safeCall('sitemapView',function(obj) {
+        obj.initRows();
+    },true);    
 });

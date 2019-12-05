@@ -3,13 +3,13 @@
  * Arikaim
  *
  * @link        http://www.arikaim.com
- * @copyright   Copyright (c) 2016-2018 Konstantin Atanasov <info@arikaim.com>
+ * @copyright   Copyright (c)  Konstantin Atanasov <info@arikaim.com>
  * @license     http://www.arikaim.com/license
  * 
 */
 namespace Arikaim\Extensions\Sitemap;
 
-use Arikaim\Core\Packages\Extension\Extension;
+use Arikaim\Core\Extension\Extension;
 
 /**
  * Sitemap extension
@@ -24,7 +24,7 @@ class Sitemap extends Extension
     public function install()
     {  
         // Page route
-        $this->addPageRoute('/sitemap.xml','SitemapPage','sitemapXML',null,null,null,false);   
+        $this->addPageRoute('/sitemap.xml','SitemapPage','sitemapXML');   
         // Create db tables
         $this->createDbTable('SitemapOptionsSchema');
         // Events

@@ -3,7 +3,7 @@
  * Arikaim
  *
  * @link        http://www.arikaim.com
- * @copyright   Copyright (c) 2016-2018 Konstantin Atanasov <info@arikaim.com>
+ * @copyright   Copyright (c)  Konstantin Atanasov <info@arikaim.com>
  * @license     http://www.arikaim.com/license
  * 
 */
@@ -11,11 +11,10 @@ namespace Arikaim\Extensions\Sitemap\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Arikaim\Core\Traits\Db\Uuid;
-use Arikaim\Core\Traits\Db\Find;
-use Arikaim\Core\Traits\Db\Options;
+use Arikaim\Core\Db\Traits\Uuid;
+use Arikaim\Core\Db\Traits\Find;
+use Arikaim\Core\Db\Traits\Options;
 use Arikaim\Core\Arikaim;
-use Arikaim\Core\Db\Model as DbModel;
 
 /**
  * Sitemap options class
@@ -49,21 +48,23 @@ class SitemapOptions extends Model
     /**
      * Get route pages list
      *
-     * @param Model $route
+     * @param array $route
      * @return array
      */
     public function getRoutePages($route)
     {
+        $route = (is_object($route) == true) ? $route->toArray() : $route;
+        
         $pages = [];
-        if (empty($route->extension_name) == false) {
-            $result = Arikaim::event()->trigger('sitemap.pages',$route->toArray(),false,$route->extension_name);
+        if (empty($route['extension_name']) == false) {
+            $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
             if (is_array($result) == true) {
                 foreach ($result as $list) {                       
                     $pages = array_merge($pages,$list);
                 }                  
             }
         } else { 
-            $pages[] = $route->getRouteUrl();
+            $pages[] = Arikaim::routes()->getRouteUrl($route['pattern']);
         } 
         
         return $pages;
@@ -82,7 +83,7 @@ class SitemapOptions extends Model
         }
 
         $pages = [];      
-        $routes = DbModel::Routes()->getPageRoutesQuery(null,1)->get();
+        $routes = Arikaim::routes()->getRoutes(['status' => 1,'type' => 1]);
         
         foreach ($routes as $route) {
             $result = $this->getRoutePages($route);

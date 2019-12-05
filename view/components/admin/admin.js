@@ -5,8 +5,6 @@
  *  @license    http://www.arikaim.com/license
  *  http://www.arikaim.com
  * 
- *  Extension: Sitemap
- *  Component: sitemap:admin
  */
 
 function SitemapControlPanel() {
