@@ -2,7 +2,6 @@
     "title": "Sitemap",
     "name": "sitemap",
     "package-type": "extension",
-    "class": "Sitemap",
     "type": "user",
     "description": "Sitemap.",
     "short-description": "Manage Sitemap.",
