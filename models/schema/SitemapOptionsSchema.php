@@ -31,9 +31,15 @@ class SitemapOptionsSchema extends Schema
      */
     public function create($table) 
     {            
-        $table->tableOptions('routes',function($table) {
-
-        });
+        // columns
+        $table->id();
+        $table->prototype('uuid');     
+        $table->string('lastmod')->nullable(true);
+        $table->string('changefreq')->nullable(true);
+        $table->text('priority')->nullable(true);
+        $table->string('pattern')->nullable(false);
+        // indexes
+        $table->index('pattern');
     }
 
     /**

@@ -11,10 +11,11 @@ namespace Arikaim\Extensions\Sitemap\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Arikaim\Core\Arikaim;
+use Arikaim\Core\Routes\Route;
+
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
-use Arikaim\Core\Db\Traits\Options;
-use Arikaim\Core\Arikaim;
 
 /**
  * Sitemap options class
@@ -22,7 +23,6 @@ use Arikaim\Core\Arikaim;
 class SitemapOptions extends Model  
 {
     use Uuid,       
-        Options,
         Find;
        
     /**
@@ -32,17 +32,24 @@ class SitemapOptions extends Model
      */
     protected $table = "sitemap_options";
 
+    /**
+     * Fillable attributes
+     *
+     * @var array
+     */
     protected $fillable = [
-        'reference_id',
-        'key',
-        'value',
-        'title',
-        'description',
-        'read_only',
-        'hidden',
-        'type'      
+        'uuid',
+        'lastmod',
+        'changefreq',
+        'priority',
+        'pattern'        
     ];
     
+    /**
+     * Disable timestamps
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     /**
@@ -64,7 +71,7 @@ class SitemapOptions extends Model
                 }                  
             }
         } else { 
-            $pages[] = Arikaim::routes()->getRouteUrl($route['pattern']);
+            $pages[] = Route::getRouteUrl($route['pattern']);
         } 
         
         return $pages;
@@ -83,6 +90,7 @@ class SitemapOptions extends Model
         }
 
         $pages = [];      
+        // Get active page routes
         $routes = Arikaim::routes()->getRoutes(['status' => 1,'type' => 1]);
         
         foreach ($routes as $route) {

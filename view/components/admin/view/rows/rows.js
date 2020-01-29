@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    safeCall('sitemapView',function(obj) {
+    safeCall('currencyView',function(obj) {
         obj.initRows();
     },true);    
 });

@@ -19,7 +19,7 @@ class Sitemap extends Extension
     /**
      * Install extension routes, events, jobs ..
      *
-     * @return boolean
+     * @return void
     */
     public function install()
     {  
@@ -32,19 +32,15 @@ class Sitemap extends Extension
         // Options
         $this->createOption('sitemap.changefreq','weekly');
         $this->createOption('sitemap.priority','1.0');
-
-        return true;
     }   
 
     /**
      * Uninstall extension
      *
-     * @return boolean
+     * @return void
      */
     public function unInstall()
     {
         $this->dropDbTable('SitemapOptionsSchema'); 
-        
-        return true;
     }
 }
