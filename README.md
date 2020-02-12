@@ -1,8 +1,8 @@
-## Sitemap extension
+## Arikaim Sitemap extension
 ![Version: 1.0.0](https://img.shields.io/github/release/arikaim/sitemap-extension.svg)
 ![License: GPL3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
-Google sitemap for Arikaim CMS
+Google sitemap generator for Arikaim CMS
 
 
 #### Requirements 
