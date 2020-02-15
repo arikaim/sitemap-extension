@@ -1,5 +1,7 @@
+'use strict';
+
 $(document).ready(function() {
-    safeCall('currencyView',function(obj) {
+    safeCall('sitemapView',function(obj) {
         obj.initRows();
     },true);    
 });
