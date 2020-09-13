@@ -9,12 +9,12 @@
 */
 namespace Arikaim\Extensions\Sitemap\Controllers;
 
-use Arikaim\Core\Controllers\ApiController;
+use Arikaim\Core\Controllers\ControlPanelApiController;
 
 /** 
- *  Sitemap contro panel api controller
+ *  Sitemap control panel api controller
  */
-class SitemapControlPanel extends ApiController
+class SitemapControlPanel extends ControlPanelApiController
 {
     /**
      * Init controller
@@ -23,6 +23,6 @@ class SitemapControlPanel extends ApiController
      */
     public function init()
     {
-        $this->loadMessages('category::admin.messages');
+        $this->loadMessages('sitemap::admin.messages');
     }
 }

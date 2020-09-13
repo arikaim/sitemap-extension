@@ -1,0 +1,11 @@
+{
+    "title": {
+        "content": "Settings",
+        "icon": "cogs"
+    },
+    "labels": {
+        "options": "Options",
+        "changefreq": "Changefreq",
+        "priority": "Priority"
+    }
+}

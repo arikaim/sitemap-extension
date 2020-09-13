@@ -33,13 +33,16 @@ class SitemapOptionsSchema extends Schema
     {            
         // columns
         $table->id();
-        $table->prototype('uuid');     
+        $table->prototype('uuid');   
+        $table->status();  
         $table->string('lastmod')->nullable(true);
         $table->string('changefreq')->nullable(true);
         $table->text('priority')->nullable(true);
         $table->string('pattern')->nullable(false);
+        $table->string('extension')->nullable(true); 
         // indexes
         $table->index('pattern');
+        $table->unique(['pattern','extension']);
     }
 
     /**
@@ -50,5 +53,11 @@ class SitemapOptionsSchema extends Schema
      */
     public function update($table) 
     {              
+        if ($this->hasColumn('extension') == false) {
+            $table->string('extension')->nullable(true); 
+        }
+        if ($this->hasColumn('status') == false) {
+            $table->status();  
+        } 
     }
 }

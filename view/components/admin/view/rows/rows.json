@@ -8,5 +8,10 @@
             "content": "Relations",          
             "title": "View Relations"
         }
+    },
+    "labels": {
+        "home": "Home page",
+        "extension": "Extension",
+        "theme": "Theme"
     }
 }

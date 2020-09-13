@@ -27,28 +27,15 @@ class SitemapPage extends Controller
      */
     public function sitemapXML($request, $response, $data)
     {                   
-        $pages = $this->getPageRoutes();
-        $xml = $this->get('page')->createHtmlComponent('sitemap::sitemap.xml',['pages' => $pages])->load();
+        $model = Model::SitemapOptions('sitemap');
+        $pages = $model->getPageRoutes();
+
+        $xml = $this->get('page')->createHtmlComponent('sitemap::sitemap.xml',[
+            'pages'      => $pages,
+            'changefreq' => $this->get('options')->get('sitemap.changefreq','weekly'),
+            'priority'   => $this->get('options')->get('sitemap.priority','1.0')
+        ])->load();
        
         return $this->writeXml($response,$xml);    
-    }
-
-    /**
-     * Get page(s) url list for each page route 
-     *
-     * @return array
-     */
-    public function getPageRoutes()
-    {
-        $pages = [];
-        $sitemap = Model::SitemapOptions('sitemap');
-        $routes = $this->get('routes')->getRoutes(['status' => 1, 'type' => 1]);
-        
-        foreach ($routes as $route) {
-            $result = $sitemap->getRoutePages($route);
-            $pages = array_merge($pages,$result);                
-        }
-      
-        return $pages;
     }
 }

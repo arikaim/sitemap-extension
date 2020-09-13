@@ -39,10 +39,12 @@ class SitemapOptions extends Model
      */
     protected $fillable = [
         'uuid',
+        'status',
         'lastmod',
         'changefreq',
         'priority',
-        'pattern'        
+        'pattern',
+        'extension'        
     ];
     
     /**
@@ -53,28 +55,93 @@ class SitemapOptions extends Model
     public $timestamps = false;
 
     /**
+     * Get route options 
+     *
+     * @param string $pattern
+     * @param string|null $extension
+     * @return Model|false
+     */
+    public function getRouteOptions($pattern, $extension = null)
+    {
+        $model = $this->routeOptions($pattern,$extension)->first();
+
+        return (\is_object($model) == true) ? $model : false;
+    }
+
+    /**
+     * Route options scope
+     *
+     * @param Builder $query
+     * @param string $pattern
+     * @param string|null $extension
+     * @return Builder
+     */
+    public function scopeRouteOptions($query, $pattern, $extension = null)
+    {
+        $query = $query->where('pattern','=',$pattern);
+        if (empty($extension) == false) {
+           $query = $query->where('extension','=',$extension);
+        }
+        
+        return $query;
+    }
+
+    /**
+     * Save route options
+     *
+     * @param array $data
+     * @param string $pattern
+     * @param string|null $extension
+     * @return Model|boolean
+     */
+    public function saveRouteOptions(array $data,$pattern, $extension = null)
+    {
+        $query = $this->routeOptions($pattern,$extension);
+        if (\is_object($query->first()) == true) {
+            return $query->update($data);
+        } 
+        $data['pattern'] = $pattern;
+        $data['extension'] = $extension;
+        
+        return $this->create($data);       
+    }
+
+    /**
      * Get route pages list
      *
-     * @param array $route
-     * @return array
+     * @param object|array $route
+     * @return array|string|false
      */
     public function getRoutePages($route)
     {
-        $route = (is_object($route) == true) ? $route->toArray() : $route;
+        $route = (\is_object($route) == true) ? $route->toArray() : $route;        
         
-        $pages = [];
-        if (empty($route['extension_name']) == false) {
+        if (empty($route['extension_name']) == false && $route['type'] == 1) {           
             $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
-            if (is_array($result) == true) {
-                foreach ($result as $list) {                       
-                    $pages = array_merge($pages,$list);
-                }                  
-            }
-        } else { 
-            $pages[] = Route::getRouteUrl($route['pattern']);
+            return ((\is_array($result) == true) && (empty($result) == false)) ? $result : false;                              
         } 
-        
-        return $pages;
+
+        return Route::getRouteUrl($route['pattern']);      
+    }
+
+    /**
+     * Get route pages count
+     *
+     * @param object|array  $route
+     * @return integer
+     */
+    public function getRoutePagesCount($route)
+    {
+        $pages = $this->getRoutePages($route);
+        if (\is_string($pages) == true) {
+            return 1;
+        }
+
+        if (\is_array($pages) == true) {
+            return (\is_array($pages[0]) == true) ? count($pages[0]) : count($pages);
+        }
+
+        return 0;
     }
 
     /**
@@ -89,16 +156,42 @@ class SitemapOptions extends Model
             return $total;
         }
 
-        $pages = [];      
-        // Get active page routes
-        $routes = Arikaim::routes()->getRoutes(['status' => 1,'type' => 1]);
-        
-        foreach ($routes as $route) {
-            $result = $this->getRoutePages($route);
-            $pages = array_merge($pages,$result);                
-        }
+        $pages = $this->getPageRoutes();
         Arikaim::cache()->save('sitemap.total.pages',count($pages),2);
 
         return count($pages);
+    }
+
+     /**
+     * Get page(s) url list for each page route 
+     *
+     * @return array
+     */
+    public function getPageRoutes()
+    {
+        $pages = [];
+        // Add home page 
+        $homePage = Arikaim::routes()->getRoutes(['status' => 1, 'type' => 3]);
+        $routes = Arikaim::routes()->getRoutes(['status' => 1, 'type' => 1]);        
+        $routes = \array_merge($homePage,$routes);  
+
+        foreach ($routes as $route) {
+            $result = $this->getRoutePages($route);  
+
+            if (\is_array($result) == true) {                            
+                foreach($result as $item) {                 
+                    if (\is_array($item) == false) {
+                        $pages[] = $item;
+                    } else {
+                        $pages = \array_merge($pages,$item);
+                    }
+                }              
+            }       
+            if (\is_string($result) == true) {   
+                $pages[] = $result;
+            }
+        }
+      
+        return $pages;
     }
 }

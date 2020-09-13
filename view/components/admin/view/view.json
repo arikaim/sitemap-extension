@@ -6,13 +6,14 @@
     "buttons": {
         "view": "Sitemap"
     },
-    "labels": {        
+    "labels": {           
     },
     "columns": {
         "url": "Url",
+        "status": "Status",
         "page": "Pages",
         "pattern": "Route Pattern",
-        "extension": "Extension",
+        "extension": "Extension/Theme",
         "actions": "Actions",
         "priority": "Priority",
         "lastmod": "Last Modification",

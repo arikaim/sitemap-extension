@@ -1,0 +1,15 @@
+<div class="ui dropdown {{ class }} priority-dropdown" id="priority_dropdown">
+    <div class="text">        
+        {{ selected }}
+    </div>
+    <i class="dropdown icon"></i>   
+    <div class="ui menu">     
+        {% set priority = 1.0 %}      
+        {% for item in 1..11 %}                   
+            <div class="item" data-value="{{ priority|number_format(1,'.') }}">                          
+                {{ priority|number_format(1,'.') }}
+            </div>       
+            {% set priority = priority - 0.1 %}         
+        {% endfor %}           
+    </div>
+</div>

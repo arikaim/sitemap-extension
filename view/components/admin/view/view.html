@@ -1,9 +1,12 @@
 <div class="ui stackable text menu">
-    <div class="item left floated">   
+    <div class="item">   
         <a class="ui basic button" href="{{ url('sitemap.xml',true) }}" target="_blank">
             <i class="rss square icon"></i>
             {{ buttons.view }}
         </a>    
+    </div>
+    <div class="item">   
+        {{ component('sitemap::admin.dashboard.stats') }}
     </div>
     <div class="item right floated">       
         {{ component('components:paginator.dropdown',{ namespace: 'sitemap' }) }}
@@ -13,6 +16,7 @@
     <thead>
         <tr class="table-head">                          
             <th class="ten wide">{{ columns.pattern }}</th>
+            <th class="one wide">{{ columns.status }}</th>
             <th class="one wide">{{ columns.page }}</th>
             <th class="collapsing one wide">{{ columns.lastmod }}</th>
             <th class="collapsing one wide">{{ columns.changefreq }}</th>

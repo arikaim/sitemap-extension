@@ -1,0 +1,15 @@
+{% set selected_text = items[selected] %}
+
+<div class="ui dropdown {{ class }} changefreq-dropdown" id="changefreq_dropdown">
+    <div class="text">        
+        {{ selected_text }}
+    </div>
+    <i class="dropdown icon"></i>   
+    <div class="ui menu">     
+        {% for key, value in items %}           
+            <div class="item" data-value="{{ key }}">                          
+                {{ value }}
+            </div>             
+        {% endfor %}           
+    </div>
+</div>
