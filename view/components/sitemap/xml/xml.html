@@ -3,7 +3,7 @@
     {%- for page in pages %}  
     <url>
         <loc>{{ url(page|escape,true) }}</loc>
-        <lastmod>{{ today()|dateFormat }}</lastmod>
+        <lastmod>{{ today()|dateFormat('full') }}</lastmod>
         <changefreq>{{ changefreq|default('weekly') }}</changefreq>
         <priority>{{ priority|default('1.0') }}</priority>  
     </url>

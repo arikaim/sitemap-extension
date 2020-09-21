@@ -25,4 +25,32 @@ class SitemapControlPanel extends ControlPanelApiController
     {
         $this->loadMessages('sitemap::admin.messages');
     }
+
+    /**
+     * Set route status
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function updateStatusController($request, $response, $data)
+    {
+        $this->onDataValid(function($data) { 
+        });
+    }
+
+    /**
+     * Set route options
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function updateOptionsController($request, $response, $data)
+    {
+        $this->onDataValid(function($data) { 
+        });
+    }
 }
