@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     {%- for page in pages %}  
     <url>
-        <loc>{{ url(page|escape,true) }}</loc>
-        <lastmod>{{ today()|dateFormat('full') }}</lastmod>
+        <loc>{{ url(page|escape,true) }}</loc>       
+        <lastmod>{{ "now"|date('c') }}</lastmod>
         <changefreq>{{ changefreq|default('weekly') }}</changefreq>
         <priority>{{ priority|default('1.0') }}</priority>  
     </url>
