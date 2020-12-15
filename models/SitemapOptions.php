@@ -110,14 +110,17 @@ class SitemapOptions extends Model
      * Get route pages list
      *
      * @param object|array $route
+     * @param string $language
      * @return array|string|false
      */
-    public function getRoutePages($route)
+    public function getRoutePages($route, $language = 'en')
     {
         $route = (\is_object($route) == true) ? $route->toArray() : $route;        
         
-        if (empty($route['extension_name']) == false && $route['type'] == 1) {           
+        if (empty($route['extension_name']) == false && $route['type'] == 1) {    
+            $route['language'] = $language;   
             $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
+
             return ((\is_array($result) == true) && (empty($result) == false)) ? $result : false;                              
         } 
 
@@ -128,11 +131,12 @@ class SitemapOptions extends Model
      * Get route pages count
      *
      * @param object|array  $route
+     * @param string $language
      * @return integer
      */
-    public function getRoutePagesCount($route)
+    public function getRoutePagesCount($route, $language = 'en')
     {
-        $pages = $this->getRoutePages($route);
+        $pages = $this->getRoutePages($route,$language);
         if (\is_string($pages) == true) {
             return 1;
         }
@@ -146,17 +150,18 @@ class SitemapOptions extends Model
 
     /**
      * Get total pages 
-     *
+     * 
+     * @param string $language
      * @return integer
      */
-    public function getTotalPageRoutes()
+    public function getTotalPageRoutes($language = 'en')
     {
         $total = Arikaim::cache()->fetch('sitemap.total.pages');
         if (empty($total) == false) {
             return $total;
         }
 
-        $pages = $this->getPageRoutes();
+        $pages = $this->getPageRoutes($language);
         Arikaim::cache()->save('sitemap.total.pages',count($pages),2);
 
         return count($pages);
@@ -165,9 +170,10 @@ class SitemapOptions extends Model
      /**
      * Get page(s) url list for each page route 
      *
+     * @param string $language
      * @return array
      */
-    public function getPageRoutes()
+    public function getPageRoutes($language = 'en')
     {
         $pages = [];
         // Add home page 
@@ -176,7 +182,7 @@ class SitemapOptions extends Model
         $routes = \array_merge($homePage,$routes);  
 
         foreach ($routes as $route) {
-            $result = $this->getRoutePages($route);  
+            $result = $this->getRoutePages($route,$language);  
 
             if (\is_array($result) == true) {                            
                 foreach($result as $item) {                 

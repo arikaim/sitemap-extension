@@ -28,7 +28,9 @@ class SitemapPage extends Controller
     public function sitemapXML($request, $response, $data)
     {                   
         $model = Model::SitemapOptions('sitemap');
-        $pages = $model->getPageRoutes();
+        $language = $this->get('options')->get('default.language','en');
+        
+        $pages = $model->getPageRoutes($language);
 
         $xml = $this->get('page')->createHtmlComponent('sitemap::sitemap.xml',[
             'pages'      => $pages,
