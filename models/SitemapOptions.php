@@ -120,8 +120,8 @@ class SitemapOptions extends Model
         if (empty($route['extension_name']) == false && $route['type'] == 1) {    
             $route['language'] = $language;   
             $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
-
-            return ((\is_array($result) == true) && (empty($result) == false)) ? $result : false;                              
+          
+            return $result;                          
         } 
 
         return Route::getRouteUrl($route['pattern']);      
@@ -135,14 +135,15 @@ class SitemapOptions extends Model
      * @return integer
      */
     public function getRoutePagesCount($route, $language = 'en')
-    {
+    {       
         $pages = $this->getRoutePages($route,$language);
         if (\is_string($pages) == true) {
             return 1;
         }
 
         if (\is_array($pages) == true) {
-            return (\is_array($pages[0]) == true) ? count($pages[0]) : count($pages);
+            $pageItems = $pages[0] ?? null;
+            return (\is_array($pageItems) == true) ? \count($pageItems) : \count($pages);
         }
 
         return 0;

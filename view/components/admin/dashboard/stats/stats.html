@@ -1,7 +1,5 @@
 {% set sitemap = createModel('SitemapOptions','sitemap') %}
-<div class="ui mini horizontal teal statistics {{ class }}">
-    <div class="statistic">
-        <div class="value">{{ sitemap.getTotalPageRoutes() }}</div>
-        <div class="label">{{ labels.pages }}</div>
-    </div>                          
+<div class="ui horizontal teal small statistic {{ class }}">
+    <div class="value">{{ sitemap.getTotalPageRoutes() }}</div>
+    <div class="label">{{ labels.pages }}</div>                          
 </div>

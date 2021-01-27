@@ -30,7 +30,7 @@ class DasboardSubscriber extends EventSubscriber implements EventSubscriberInter
      * Subscriber code executed.
      *
      * @param EventInterface $event
-     * @return void
+     * @return string
      */
     public function execute($event)
     {     

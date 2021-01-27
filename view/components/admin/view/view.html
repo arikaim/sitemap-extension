@@ -1,18 +1,22 @@
-<div class="ui stackable text menu">
-    <div class="item">   
-        <a class="ui basic button" href="{{ url('sitemap.xml',true) }}" target="_blank">
-            <i class="rss square icon"></i>
-            {{ buttons.view }}
-        </a>    
-    </div>
-    <div class="item">   
-        {{ component('sitemap::admin.dashboard.stats') }}
-    </div>
-    <div class="item right floated">       
-        {{ component('components:paginator.dropdown',{ namespace: 'sitemap' }) }}
+<div class="ui segment">
+    <div class="ui stackable grid">
+        <div class="two wide column">   
+            <a class="ui basic button icon labeled" href="{{ url('sitemap.xml',true) }}" target="_blank">
+                <i class="rss square icon"></i>
+                {{ buttons.view }}
+            </a>    
+        </div>
+        <div class="eleven wide column">
+        </div>
+        <div class="two wide column right aligned">   
+            {{ component('sitemap::admin.dashboard.stats',{ class: 'small pt-1' }) }}
+        </div>
+        <div class="one wide column right aligned">       
+            {{ component('components:paginator.dropdown',{ namespace: 'sitemap' }) }}
+        </div>
     </div>
 </div>
-<table class="ui compact stackable borderless basic table mt-2">
+<table class="ui compact stackable borderless basic table">
     <thead>
         <tr class="table-head">                          
             <th class="ten wide">{{ columns.pattern }}</th>
