@@ -178,8 +178,14 @@ class SitemapOptions extends Model
     {
         $pages = [];
         // Add home page 
-        $homePage = Arikaim::routes()->getRoutes(['status' => 1, 'type' => 3]);
-        $routes = Arikaim::routes()->getRoutes(['status' => 1, 'type' => 1]);        
+        $homePage = Arikaim::routes()->getRoutes([
+            'status' => 1, 
+            'type'   => 3
+        ]);
+        $routes = Arikaim::routes()->getRoutes([
+            'status' => 1,
+            'type'   => 1
+        ]);        
         $routes = \array_merge($homePage,$routes);  
 
         foreach ($routes as $route) {

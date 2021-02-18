@@ -7,7 +7,6 @@
 'use strict';
 
 function SitemapView() {
-    var self = this;
 
     this.init = function() {
         paginator.init('page_rows','sitemap::admin.view.rows','sitemap');          
@@ -20,6 +19,6 @@ function SitemapView() {
 
 var sitemapView = new SitemapView();
 
-arikaim.page.onReady(function() {
+arikaim.component.onLoaded(function() {
     sitemapView.init();   
 });

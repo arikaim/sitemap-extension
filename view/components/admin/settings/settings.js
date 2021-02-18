@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     $('#changefreq_dropdown').dropdown({
         onChange: function(value) {
             options.save('sitemap.changefreq',value,function(result) {

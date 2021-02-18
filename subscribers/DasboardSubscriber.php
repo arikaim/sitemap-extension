@@ -34,6 +34,9 @@ class DasboardSubscriber extends EventSubscriber implements EventSubscriberInter
      */
     public function execute($event)
     {     
-        return 'sitemap::admin.dashboard';
+        return [
+            'component' => 'sitemap::admin.dashboard',
+            'class'     => 'two wide'
+        ];    
     }
 }

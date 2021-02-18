@@ -7,8 +7,7 @@
 'use strict';
 
 function SitemapControlPanel() {
-    var self = this;
-
+  
     this.delete = function(uuid, onSuccess, onError) {
         return arikaim.delete('/api/tags/admin/delete/' + uuid,onSuccess,onError);          
     };
@@ -20,6 +19,6 @@ function SitemapControlPanel() {
 
 var sitemap = new SitemapControlPanel();
 
-arikaim.page.onReady(function() {
+arikaim.component.onLoaded(function() {
     sitemap.init();
 });
