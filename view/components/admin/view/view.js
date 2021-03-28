@@ -9,15 +9,11 @@
 function SitemapView() {
 
     this.init = function() {
-        paginator.init('page_rows','sitemap::admin.view.rows','sitemap');          
-        this.initRows();
-    };
-
-    this.initRows = function() {
-    };
+        paginator.init('page_rows','sitemap::admin.view.rows','sitemap');                  
+    }; 
 }
 
-var sitemapView = new SitemapView();
+var sitemapView = createObject(SitemapView,ControlPanelView);
 
 arikaim.component.onLoaded(function() {
     sitemapView.init();   
