@@ -1,7 +1,7 @@
 {
     "include": {
         "js": [
-            "system:admin.orm.options"
+            "system:options"
         ]
     },
     "access": {

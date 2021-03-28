@@ -28,16 +28,16 @@ class SitemapPage extends Controller
     public function sitemapXML($request, $response, $data)
     {                   
         $model = Model::SitemapOptions('sitemap');
-        $language = $this->get('options')->get('default.language','en');
+        $language = $this->getDefaultLanguage();
         
         $pages = $model->getPageRoutes($language);
 
-        $xml = $this->get('page')->createHtmlComponent('sitemap::sitemap.xml',[
+        $component = $this->get('page')->renderHtmlComponent('sitemap::sitemap.xml',[
             'pages'      => $pages,
             'changefreq' => $this->get('options')->get('sitemap.changefreq','weekly'),
             'priority'   => $this->get('options')->get('sitemap.priority','1.0')
-        ])->load();
+        ],$language);
        
-        return $this->writeXml($response,$xml);    
+        return $this->writeXml($response,$component->getHtmlCode());    
     }
 }

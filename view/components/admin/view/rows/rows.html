@@ -1,44 +1,42 @@
-{% component 'components:view.rows' %}
-    {% set changefreq = getOption('sitemap.changefreq','weekly') %}
-    {% set priority = getOption('sitemap.priority','1.0') %}
-    {% set sitemap = createModel('SitemapOptions','sitemap') %}
-    {% set pages = createModel('Routes').whereIn('type',[1,3]) %}
-    {% set items = paginate(pages,'sitemap') %}
-   
-    {% for item in items.getItems() %}   
-    <tr id="{{ item.uuid }}">        
-        <td>                    
-           {{ url(item.pattern,true) }}
-        </td>
-        <td>    
-            {{ component('components:status.label',{ status: item.status, class: 'basic' }) }}                      
-        </td>
-        <td>           
-            <div class="ui icon basic label">              
-                {{ sitemap.getRoutePagesCount(item) }}               
-            </div>
-            {% if item.type == 3 %}
-            <div class="ui icon basic label" title="{{ labels.home }}">
-                <i class="icon blue home"></i>
-            </div>
-            {% endif %}
-        </td>
-        <td>{{ today()|dateFormat }}</td>
-        <td>
-            <div class="ui icon basic label">  
-            {{ changefreq }}
-            </div>
-        </td>
-        <td>{{ priority }}</td>
-        <td>
-            {% if item.template_name is not empty %}
-                <i class="icon blue browser" title="{{ labels.theme }}"></i>
-                {{ item.template_name }}
-            {% else %}
-                <i class="icon blue puzzle" title="{{ labels.extension }}"></i>
-                {{ item.extension_name }}
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-{% endcomponent %}
+{% set changefreq = getOption('sitemap.changefreq','weekly') %}
+{% set priority = getOption('sitemap.priority','1.0') %}
+{% set sitemap = createModel('SitemapOptions','sitemap') %}
+{% set pages = createModel('Routes').whereIn('type',[1,3]) %}
+{% set items = paginate(pages,'sitemap') %}
+
+{% for item in items.getItems() %}   
+<tr id="{{ item.uuid }}">        
+    <td>                    
+        {{ url(item.pattern,true) }}
+    </td>
+    <td>    
+        {{ component('components:status.label',{ status: item.status, class: 'basic' }) }}                      
+    </td>
+    <td>           
+        <div class="ui icon basic label">              
+            {{ sitemap.getRoutePagesCount(item) }}               
+        </div>
+        {% if item.type == 3 %}
+        <div class="ui icon basic label" title="{{ labels.home }}">
+            <i class="icon blue home"></i>
+        </div>
+        {% endif %}
+    </td>
+    <td>{{ today()|dateFormat }}</td>
+    <td>
+        <div class="ui icon basic label">  
+        {{ changefreq }}
+        </div>
+    </td>
+    <td>{{ priority }}</td>
+    <td>
+        {% if item.template_name is not empty %}
+            <i class="icon blue browser" title="{{ labels.theme }}"></i>
+            {{ item.template_name }}
+        {% else %}
+            <i class="icon blue puzzle" title="{{ labels.extension }}"></i>
+            {{ item.extension_name }}
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
