@@ -61,7 +61,7 @@ class SitemapOptions extends Model
      * @param string|null $extension
      * @return Model|false
      */
-    public function getRouteOptions($pattern, $extension = null)
+    public function getRouteOptions(string $pattern, ?string $extension = null)
     {
         $model = $this->routeOptions($pattern,$extension)->first();
 
@@ -76,7 +76,7 @@ class SitemapOptions extends Model
      * @param string|null $extension
      * @return Builder
      */
-    public function scopeRouteOptions($query, $pattern, $extension = null)
+    public function scopeRouteOptions($query, string $pattern, ?string $extension = null)
     {
         $query = $query->where('pattern','=',$pattern);
         if (empty($extension) == false) {
@@ -94,7 +94,7 @@ class SitemapOptions extends Model
      * @param string|null $extension
      * @return Model|boolean
      */
-    public function saveRouteOptions(array $data,$pattern, $extension = null)
+    public function saveRouteOptions(array $data, string $pattern, ?string $extension = null)
     {
         $query = $this->routeOptions($pattern,$extension);
         if (\is_object($query->first()) == true) {
@@ -113,10 +113,10 @@ class SitemapOptions extends Model
      * @param string $language
      * @return array|string|false
      */
-    public function getRoutePages($route, $language = 'en')
+    public function getRoutePages($route, string $language = 'en')
     {
         $route = (\is_object($route) == true) ? $route->toArray() : $route;        
-        
+    
         if (empty($route['extension_name']) == false && $route['type'] == 1) {    
             $route['language'] = $language;   
             $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
@@ -134,8 +134,8 @@ class SitemapOptions extends Model
      * @param string $language
      * @return integer
      */
-    public function getRoutePagesCount($route, $language = 'en')
-    {       
+    public function getRoutePagesCount($route, string $language = 'en'): int
+    {              
         $pages = $this->getRoutePages($route,$language);
         if (\is_string($pages) == true) {
             return 1;
@@ -155,17 +155,17 @@ class SitemapOptions extends Model
      * @param string $language
      * @return integer
      */
-    public function getTotalPageRoutes($language = 'en')
-    {
-        $total = Arikaim::cache()->fetch('sitemap.total.pages');
-        if (empty($total) == false) {
-            return $total;
+    public function getTotalPageRoutes($language = 'en'): int
+    {       
+        $total = Arikaim::cache()->fetch('sitemap.total.pages');              
+        if ($total !== false) {
+            return (int)$total;
         }
 
-        $pages = $this->getPageRoutes($language);
-        Arikaim::cache()->save('sitemap.total.pages',count($pages),2);
+        $pages = $this->getPageRoutes($language);      
+        Arikaim::cache()->save('sitemap.total.pages',\count($pages),2);
 
-        return count($pages);
+        return \count($pages);
     }
 
      /**
@@ -174,20 +174,23 @@ class SitemapOptions extends Model
      * @param string $language
      * @return array
      */
-    public function getPageRoutes($language = 'en')
+    public function getPageRoutes(string $language = 'en'): array
     {
         $pages = [];
+
         // Add home page 
         $homePage = Arikaim::routes()->getRoutes([
             'status' => 1, 
             'type'   => 3
         ]);
+
         $routes = Arikaim::routes()->getRoutes([
             'status' => 1,
             'type'   => 1
-        ]);        
+        ]);     
+        
         $routes = \array_merge($homePage,$routes);  
-
+    
         foreach ($routes as $route) {
             $result = $this->getRoutePages($route,$language);  
 
