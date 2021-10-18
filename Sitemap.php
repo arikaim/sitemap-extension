@@ -41,6 +41,5 @@ class Sitemap extends Extension
      */
     public function unInstall()
     {
-        $this->dropDbTable('SitemapOptionsSchema'); 
     }
 }
