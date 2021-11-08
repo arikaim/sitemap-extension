@@ -11,12 +11,15 @@ namespace Arikaim\Extensions\Sitemap\Controllers;
 
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Controllers\Controller;
+use Arikaim\Core\Controllers\Traits\Base\Multilanguage;
 
 /**
  *  Sitemap page controller
  */
 class SitemapPage extends Controller
 {
+    use Multilanguage;
+
     /**
      * Sitemap page
      *
