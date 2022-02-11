@@ -36,7 +36,7 @@ class DasboardSubscriber extends EventSubscriber implements EventSubscriberInter
     {     
         return [
             'component' => 'sitemap::admin.dashboard',
-            'class'     => 'two wide'
+            'class'     => 'three wide'
         ];    
     }
 }
