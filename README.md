@@ -11,5 +11,7 @@ Google sitemap generator for Arikaim CMS
 
 #### Installation
 ```sh
+
 composer require arikaim/sitemap-extension
+
 ```

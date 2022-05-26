@@ -6,7 +6,8 @@
     "buttons": {
         "view": "Sitemap"
     },
-    "labels": {           
+    "labels": {    
+        "view": "View Sitemap"     
     },
     "columns": {
         "url": "Url",

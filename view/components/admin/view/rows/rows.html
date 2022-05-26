@@ -1,6 +1,3 @@
-{% set changefreq = getOption('sitemap.changefreq','weekly') %}
-{% set priority = getOption('sitemap.priority','1.0') %}
-{% set sitemap = createModel('SitemapOptions','sitemap') %}
 {% set pages = createModel('Routes').whereIn('type',[1,3]) %}
 {% set items = paginate(pages,'sitemap') %}
 
@@ -14,7 +11,7 @@
     </td>
     <td>           
         <div class="ui icon basic label">              
-            {{ sitemap.getRoutePagesCount(item) }}               
+            {{ service('sitemap').getRoutePagesCount(item) }}               
         </div>
         {% if item.type == 3 %}
         <div class="ui icon basic label" title="{{ labels.home }}">
@@ -22,13 +19,6 @@
         </div>
         {% endif %}
     </td>
-    <td>{{ today()|dateFormat }}</td>
-    <td>
-        <div class="ui icon basic label">  
-        {{ changefreq }}
-        </div>
-    </td>
-    <td>{{ priority }}</td>
     <td>
         {% if item.template_name is not empty %}
             <i class="icon blue browser" title="{{ labels.theme }}"></i>

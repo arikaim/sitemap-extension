@@ -32,6 +32,8 @@ class Sitemap extends Extension
         // Options
         $this->createOption('sitemap.changefreq','weekly');
         $this->createOption('sitemap.priority','1.0');
+        // Services
+        $this->registerService('SitemapService');
     }   
 
     /**

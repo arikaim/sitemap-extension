@@ -1,7 +1,6 @@
-{% set sitemap = createModel('SitemapOptions','sitemap') %}
-<div class="ui mini horizontal teal statistics">
+<div id="{{ component_id }}" class="ui mini horizontal teal statistics">
     <div class="statistic">
-        <div class="value">{{ sitemap.getTotalPageRoutes() }}</div>
+        <div class="value">{{ service('sitemap').getTotalPageRoutes() }}</div>
         <div class="label">{{ labels.pages }}</div>       
     </div>
 </div>

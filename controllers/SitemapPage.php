@@ -9,9 +9,9 @@
 */
 namespace Arikaim\Extensions\Sitemap\Controllers;
 
-use Arikaim\Core\Db\Model;
 use Arikaim\Core\Controllers\Controller;
 use Arikaim\Core\Controllers\Traits\Base\Multilanguage;
+use Arikaim\Extensions\Sitemap\Classes\SitemapGenerator;
 
 /**
  *  Sitemap page controller
@@ -29,11 +29,9 @@ class SitemapPage extends Controller
      * @return void
      */
     public function sitemapXML($request, $response, $data)
-    {                   
-        $model = Model::SitemapOptions('sitemap');
+    {                          
         $language = $this->getDefaultLanguage();
-        
-        $pages = $model->getPageRoutes($language);
+        $pages = $this->get('sitemap')->getPageRoutes($language);
 
         $component = $this->get('page')->renderHtmlComponent('sitemap::sitemap.xml',[
             'pages'      => $pages,

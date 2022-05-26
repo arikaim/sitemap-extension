@@ -1,12 +1,35 @@
+{% set changefreq = getOption('sitemap.changefreq','weekly') %}
+{% set priority = getOption('sitemap.priority','1.0') %}
 <div class="ui segment">
     <div class="ui stackable grid">
-        <div class="ten wide column">   
-            <a class="ui basic button icon labeled" href="{{ url('sitemap.xml',true) }}" target="_blank">
-                <i class="rss square icon"></i>
-                {{ buttons.view }}
-            </a>    
+        <div class="fourteen wide column"> 
+            <div class="flex flex-row items-center flex-grow">  
+                <a class="ui basic button icon labeled" 
+                    title="{{ labels.view }}"
+                    href="{{ url('sitemap.xml',true) }}" 
+                    target="_blank">
+                    <i class="rss square blue icon"></i>
+                    {{ buttons.view }}
+                </a>  
+                <div class="pl-4 pr-2">
+                    {{ columns.priority }}
+                </div>
+                <div clas="pl-2 font-bold">
+                    <div class="ui basic label">
+                        {{ priority }}
+                    </div>
+                </div>
+                <div class="pl-4 pr-2">
+                    {{ columns.changefreq }}
+                </div>
+                <div clas="px-2 font-bold">
+                    <div class="ui basic label">
+                        {{ changefreq }}
+                    </div>                   
+                </div>
+            </div> 
         </div>
-        <div class="six wide column right aligned">       
+        <div class="two wide column right aligned">       
             {{ component('semantic~paginator.dropdown',{ namespace: 'sitemap' }) }}
         </div>
     </div>
@@ -18,9 +41,6 @@
                 <th class="ten wide">{{ columns.pattern }}</th>
                 <th class="one wide">{{ columns.status }}</th>
                 <th class="one wide">{{ columns.page }}</th>
-                <th class="collapsing one wide">{{ columns.lastmod }}</th>
-                <th class="collapsing one wide">{{ columns.changefreq }}</th>
-                <th class="collapsing one wide">{{ columns.priority }}</th>
                 <th class="collapsing right floated">{{ columns.extension }}</th>                 
             </tr>
         </thead>
