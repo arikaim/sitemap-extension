@@ -24,7 +24,7 @@ class Sitemap extends Extension
     public function install()
     {  
         // Page route
-        $this->addPageRoute('/sitemap.xml','SitemapPage','sitemapXML');   
+        $this->addPageRoute('/sitemap/google/sitemap.xml','SitemapPage','sitemapXML');   
         // Create db tables
         $this->createDbTable('SitemapOptionsSchema');
         // Events
