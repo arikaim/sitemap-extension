@@ -25,8 +25,6 @@ class Sitemap extends Extension
     {  
         // Page route
         $this->addPageRoute('/sitemap/google/sitemap.xml','SitemapPage','sitemapXML');   
-        // Create db tables
-        $this->createDbTable('SitemapOptionsSchema');
         // Events
         $this->registerEvent('sitemap.pages','Trigger on show sitemap.xml page');
         // Options

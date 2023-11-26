@@ -9,11 +9,8 @@
 */
 namespace Arikaim\Extensions\Sitemap\Service;
 
-use Psr\Container\ContainerInterface;
-
 use Arikaim\Core\Service\Service;
 use Arikaim\Core\Service\ServiceInterface;
-use Arikaim\Core\Arikaim;
 use Arikaim\Core\Routes\Route;
 
 /**
@@ -22,28 +19,29 @@ use Arikaim\Core\Routes\Route;
 class SitemapService extends Service implements ServiceInterface
 {
     /**
-     * Constructor
+     * Boot service
+     *
+     * @return void
      */
-    public function __construct(?ContainerInterface $container = null)
+    public function boot()
     {
         $this->setServiceName('sitemap');
-        parent::__construct($container);
     }
 
     /**
      * Get route pages list
      *
-     * @param object|array $route
+     * @param array $route
      * @param string $language
      * @return array|string|false
      */
-    public function getRoutePages($route, string $language = 'en')
+    public function getRoutePages(array $route, string $language = 'en')
     {
-        $route = (\is_object($route) == true) ? $route->toArray() : $route;        
-    
+        global $container;
+
         if (empty($route['extension_name']) == false && $route['type'] == 1) {    
             $route['language'] = $language;   
-            $result = Arikaim::event()->dispatch('sitemap.pages',$route,false,$route['extension_name']);
+            $result = $container->get('event')->dispatch('sitemap.pages',$route,false,$route['extension_name']);
           
             return $result;                          
         } 
@@ -54,11 +52,11 @@ class SitemapService extends Service implements ServiceInterface
     /**
      * Get route pages count
      *
-     * @param object|array  $route
+     * @param array  $route
      * @param string $language
      * @return integer
      */
-    public function getRoutePagesCount($route, string $language = 'en'): int
+    public function getRoutePagesCount(array $route, string $language = 'en'): int
     {              
         $pages = $this->getRoutePages($route,$language);
         if (\is_string($pages) == true) {
@@ -81,13 +79,15 @@ class SitemapService extends Service implements ServiceInterface
      */
     public function getTotalPageRoutes($language = 'en'): int
     {       
-        $total = Arikaim::cache()->fetch('sitemap.total.pages');              
+        global $container;
+
+        $total = $container->get('cache')->fetch('sitemap.total.pages');              
         if ($total !== false) {
             return (int)$total;
         }
 
         $pages = $this->getPageRoutes($language);      
-        Arikaim::cache()->save('sitemap.total.pages',\count($pages),2);
+        $container->get('cache')->save('sitemap.total.pages',\count($pages),2);
 
         return \count($pages);
     }
@@ -100,15 +100,16 @@ class SitemapService extends Service implements ServiceInterface
      */
     public function getPageRoutes(string $language = 'en'): array
     {
+        global $container;
         $pages = [];
 
         // Add home page 
-        $homePage = Arikaim::routes()->getRoutes([
+        $homePage = $container->get('routes')->getRoutes([
             'status' => 1, 
             'type'   => 3
         ]);
 
-        $routes = Arikaim::routes()->getRoutes([
+        $routes =$container->get('routes')->getRoutes([
             'status' => 1,
             'type'   => 1
         ]);     

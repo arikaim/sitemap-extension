@@ -11,7 +11,6 @@ namespace Arikaim\Extensions\Sitemap\Controllers;
 
 use Arikaim\Core\Controllers\Controller;
 use Arikaim\Core\Controllers\Traits\Base\Multilanguage;
-use Arikaim\Extensions\Sitemap\Classes\SitemapGenerator;
 
 /**
  *  Sitemap page controller

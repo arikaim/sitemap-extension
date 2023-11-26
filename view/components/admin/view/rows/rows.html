@@ -11,7 +11,7 @@
     </td>
     <td>           
         <div class="ui icon basic label">              
-            {{ service('sitemap').getRoutePagesCount(item) }}               
+            {{ service('sitemap').getRoutePagesCount(item.toArray()) }}               
         </div>
         {% if item.type == 3 %}
         <div class="ui icon basic label" title="{{ labels.home }}">
