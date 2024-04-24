@@ -1,20 +1,24 @@
-{% component 'semantic~tabs.vertical.content' %}
-{% set changefreq = getOption('sitemap.changefreq','weekly') %}
-{% set priority = getOption('sitemap.priority','1.0') %}
-<div class="mt-8">
-    <div class="ui form">
-        <div class="field four wide">
-            <label>
-                {{ labels.changefreq }}
-            </label>
-            {{ component('sitemap::admin.settings.change-freq',{ selected: changefreq, class: 'button basic fluid' }) }}
+<div class="ui two column grid">
+    <div class="column">
+        {% component 'semantic~tabs.vertical.content' %}
+        {% set changefreq = getOption('sitemap.changefreq','weekly') %}
+        {% set priority = getOption('sitemap.priority','1.0') %}
+        <div class="mt-8">
+            <div class="ui form">
+                <div class="field four wide">
+                    <label>
+                        {{ labels.changefreq }}
+                    </label>
+                    {{ component('sitemap::admin.settings.change-freq',{ selected: changefreq, class: 'button basic fluid' }) }}
+                </div>
+                <div class="field four wide">
+                    <label>
+                        {{ labels.priority }}
+                    </label>
+                    {{ component('sitemap::admin.settings.priority',{ selected: priority, class: 'button basic fluid' }) }}
+                </div>
+            </div>           
         </div>
-        <div class="field four wide">
-            <label>
-                {{ labels.priority }}
-            </label>
-            {{ component('sitemap::admin.settings.priority',{ selected: priority, class: 'button basic fluid' }) }}
-        </div>
-    </div>           
+        {% endcomponent %}
+    </div>
 </div>
-{% endcomponent %}

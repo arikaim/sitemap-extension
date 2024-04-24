@@ -37,11 +37,11 @@ class SitemapService extends Service implements ServiceInterface
      */
     public function getRoutePages(array $route, string $language = 'en')
     {
-        global $container;
+        global $arikaim;
 
         if (empty($route['extension_name']) == false && $route['type'] == 1) {    
             $route['language'] = $language;   
-            $result = $container->get('event')->dispatch('sitemap.pages',$route,false,$route['extension_name']);
+            $result = $arikaim->get('event')->dispatch('sitemap.pages',$route,false,$route['extension_name']);
           
             return $result;                          
         } 
@@ -79,15 +79,15 @@ class SitemapService extends Service implements ServiceInterface
      */
     public function getTotalPageRoutes($language = 'en'): int
     {       
-        global $container;
+        global $arikaim;
 
-        $total = $container->get('cache')->fetch('sitemap.total.pages');              
+        $total = $arikaim->get('cache')->fetch('sitemap.total.pages');              
         if ($total !== false) {
             return (int)$total;
         }
 
         $pages = $this->getPageRoutes($language);      
-        $container->get('cache')->save('sitemap.total.pages',\count($pages),2);
+        $arikaim->get('cache')->save('sitemap.total.pages',\count($pages),2);
 
         return \count($pages);
     }
@@ -100,16 +100,16 @@ class SitemapService extends Service implements ServiceInterface
      */
     public function getPageRoutes(string $language = 'en'): array
     {
-        global $container;
+        global $arikaim;
         $pages = [];
 
         // Add home page 
-        $homePage = $container->get('routes')->getRoutes([
+        $homePage = $arikaim->get('routes')->getRoutes([
             'status' => 1, 
             'type'   => 3
         ]);
 
-        $routes =$container->get('routes')->getRoutes([
+        $routes = $arikaim->get('routes')->getRoutes([
             'status' => 1,
             'type'   => 1
         ]);     
