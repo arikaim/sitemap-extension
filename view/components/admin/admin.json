@@ -1,6 +1,7 @@
 {    
     "labels": {
         "pages": "Pages",
+        "robots": "Robots.txt",
         "settings": "Settings"
     }  
 }

@@ -1,6 +1,7 @@
 {{  component('semantic~tabs',{ 
         items: [
             { id: 'view_pages', icon: 'list', title: labels.pages, active: true, component: 'sitemap::admin.view' },
+            { id: 'view_robots', icon: 'file', title: labels.robots, component: 'sitemap::admin.robots' },
             { id: 'sitemap_settings', icon: 'cogs', title: labels.settings, component: 'sitemap::admin.settings' }
         ],
         menu: { extension: 'sitemap' },

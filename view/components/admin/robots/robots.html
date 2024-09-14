@@ -1,0 +1,21 @@
+{% set file_content = service('sitemap').loadRobotsTxt() %}
+<div class="ui two column grid">
+    <div class="column">
+        <div class="ui segment">
+            {% if file_content == null %}
+                <button class="ui mini blue button create-file">
+                    {{ labels.create }}
+                </button>
+            {% else %}
+                <button class="ui mini green button save-file">
+                    {{ labels.save }}
+                </button>
+            {% endif %}
+        </div>
+        <div id="file_content">
+            {{ file_content|dump }}
+        </div>
+    </div>
+    <div class="column" id="help_content">
+    </div>
+</div>

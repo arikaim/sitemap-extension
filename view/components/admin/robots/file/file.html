@@ -1,0 +1,7 @@
+{% set file_content = service('sitemap').loadRobotsTxt() %}
+{% if file_content == null %}
+    {% set created = service('sitemap').createRobotsTxt() %}
+    {% set file_content = service('sitemap').loadRobotsTxt() %}
+{% endif %}
+
+{{ file_content }}

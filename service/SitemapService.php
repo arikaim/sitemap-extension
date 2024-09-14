@@ -12,12 +12,19 @@ namespace Arikaim\Extensions\Sitemap\Service;
 use Arikaim\Core\Service\Service;
 use Arikaim\Core\Service\ServiceInterface;
 use Arikaim\Core\Routes\Route;
+use Arikaim\Core\Utils\File;
+use Arikaim\Core\Utils\Path;
 
 /**
  * Sitemap service class
 */
 class SitemapService extends Service implements ServiceInterface
 {
+    /**
+     * robots.txt  full path name
+     */
+    const ROBOTS_TXT_FILE = ROOT_PATH . BASE_PATH . 'robots.txt';
+
     /**
      * Boot service
      *
@@ -26,6 +33,28 @@ class SitemapService extends Service implements ServiceInterface
     public function boot()
     {
         $this->setServiceName('sitemap');
+    }
+
+    /**
+     * Load robots.txt file content
+     *
+     * @return mixed|null
+     */
+    public function loadRobotsTxt()
+    {
+        return File::read(Self::ROBOTS_TXT_FILE);
+    }
+
+    public function createRobotsTxt()
+    {
+        global $arikaim;
+
+        $sitemapUrl = $arikaim->get('routes')->getUrlPath('sitemap.url');
+        $data = 'User-agent: * \n';
+        $data .= 'Allow: / \n\n';
+        $data .= 'Sitemap: ' . $sitemapUrl;
+
+        return File::write(Self::ROBOTS_TXT_FILE,$data);
     }
 
     /**
