@@ -24,7 +24,7 @@ class Sitemap extends Extension
     public function install()
     {  
         // Page route
-        $this->addPageRoute('/sitemap/google/sitemap.xml','SitemapPage','sitemapXML','sitemap.url');   
+        $this->addPageRoute('/sitemap/google/sitemap.xml','SitemapPage','sitemapXML',null,null,'sitemap.url');   
         // Events
         $this->registerEvent('sitemap.pages','Trigger on show sitemap.xml page');
         // Options
@@ -32,6 +32,8 @@ class Sitemap extends Extension
         $this->createOption('sitemap.priority','1.0');
         // Services
         $this->registerService('SitemapService');
+        // console
+        $this->registerConsoleCommand('CreateRobotsTxtCommand');
     }   
 
     /**

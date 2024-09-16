@@ -23,7 +23,7 @@ class SitemapService extends Service implements ServiceInterface
     /**
      * robots.txt  full path name
      */
-    const ROBOTS_TXT_FILE = ROOT_PATH . BASE_PATH . 'robots.txt';
+    const ROBOTS_TXT_FILE = ROOT_PATH . BASE_PATH . DIRECTORY_SEPARATOR . 'robots.txt';
 
     /**
      * Boot service
@@ -36,6 +36,14 @@ class SitemapService extends Service implements ServiceInterface
     }
 
     /**
+     *  Get robots.txt file path
+     */
+    public function getRobotsTxtFilePath(): string
+    {
+        return Self::ROBOTS_TXT_FILE;
+    }
+
+    /**
      * Load robots.txt file content
      *
      * @return mixed|null
@@ -45,14 +53,19 @@ class SitemapService extends Service implements ServiceInterface
         return File::read(Self::ROBOTS_TXT_FILE);
     }
 
+    /**
+     * Create robots.txt file
+     *
+     * @return void
+     */
     public function createRobotsTxt()
     {
         global $arikaim;
 
         $sitemapUrl = $arikaim->get('routes')->getUrlPath('sitemap.url');
-        $data = 'User-agent: * \n';
-        $data .= 'Allow: / \n\n';
-        $data .= 'Sitemap: ' . $sitemapUrl;
+        $data = "User-agent: * \r\n";
+        $data .= "Allow: / \r\n";
+        $data .= "\r\nSitemap: " . $sitemapUrl;
 
         return File::write(Self::ROBOTS_TXT_FILE,$data);
     }

@@ -4,4 +4,6 @@
     {% set file_content = service('sitemap').loadRobotsTxt() %}
 {% endif %}
 
+path
+{{ created|dump }}
 {{ file_content }}
