@@ -1,54 +1,52 @@
 {% set changefreq = getOption('sitemap.changefreq','weekly') %}
 {% set priority = getOption('sitemap.priority','1.0') %}
-<div class="ui segment">
-    <div class="ui stackable grid">
-        <div class="fourteen wide column"> 
-            <div class="flex flex-row items-center flex-grow">  
-                <a class="ui basic button icon labeled" 
-                    title="{{ labels.view }}"
-                    href="{{ url('sitemap/google/sitemap.xml',true) }}" 
-                    target="_blank">
-                    <i class="rss square blue icon"></i>
-                    {{ buttons.view }}
-                </a>  
-                <div class="pl-4 pr-2">
-                    {{ columns.priority }}
-                </div>
-                <div clas="pl-2 font-bold">
-                    <div class="ui basic label">
-                        {{ priority }}
-                    </div>
-                </div>
-                <div class="pl-4 pr-2">
-                    {{ columns.changefreq }}
-                </div>
-                <div clas="px-2 font-bold">
-                    <div class="ui basic label">
-                        {{ changefreq }}
-                    </div>                   
-                </div>
-            </div> 
+<div class="{{ theme.panel }}">
+    <div class="flex flex-row items-center flex-grow">  
+        <a class="btn btn-outline btn-sm btn-success" 
+            title="{{ labels.view }}"
+            href="{{ url('sitemap/google/sitemap.xml',true) }}" 
+            target="_blank">                   
+            {{ buttons.view }}
+        </a>  
+        <div class="pl-4 pr-2">
+            {{ columns.priority }}
         </div>
-        <div class="two wide column right aligned">       
-            {{ component('semantic~paginator.dropdown',{ namespace: 'sitemap' }) }}
+        <div clas="pl-2 font-bold">
+            <div class="badge badges-sm badge-outline">
+                {{ priority }}
+            </div>
         </div>
-    </div>
+        <div class="pl-4 pr-2">
+            {{ columns.changefreq }}
+        </div>
+        <div clas="px-2 font-bold">
+            <div class="badge badges-sm badge-outline">
+                {{ changefreq }}
+            </div>                   
+        </div>
+    </div> 
 </div>
-<div class="ui segment">
-    <table class="ui compact stackable borderless basic table">
+<div class="mt-4 {{ theme.panel }}">
+    <table class="{{ theme.table.default }}">
         <thead>
-            <tr class="table-head">                          
-                <th class="ten wide">{{ columns.pattern }}</th>
-                <th class="one wide">{{ columns.status }}</th>
-                <th class="one wide">{{ columns.page }}</th>
-                <th class="collapsing right floated">{{ columns.extension }}</th>                 
+            <tr>                          
+                <th class="">{{ columns.pattern }}</th>
+                <th class="">{{ columns.status }}</th>
+                <th class="">{{ columns.page }}</th>
+                <th class="">{{ columns.extension }}</th>                 
             </tr>
         </thead>
-        <tbody id="page_rows" component="sitemap::admin.view.rows" namespace="sitemap">
+        <tbody 
+            id="page_rows">
             {{ component('sitemap::admin.view.rows') }}   
         </tbody>  
     </table>
-    <div class="mt-2" id="paginator">
-        {{ component('semantic~paginator',{ namespace: 'sitemap' }) }}
+    <div class="ml-2 mt-2" id="paginator">
+        {{  component('system:admin.paginator',{ 
+                namespace: 'sitemap',
+                 component:"sitemap::admin.view.rows",
+                   rows_selector: 'page_rows',
+            }) 
+        }}
     </div>
 </div>

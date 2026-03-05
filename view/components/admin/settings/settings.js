@@ -1,18 +1,17 @@
 'use strict';
 
 arikaim.component.onLoaded(function() {
-    $('#changefreq_dropdown').dropdown({
-        onChange: function(value) {
-            options.save('sitemap.changefreq',value,function(result) {
-                arikaim.page.toastMessage(result.message);
-            });
-        }
+    $('#changefreq_dropdown').on('change', function() {
+        var selected = $(this).val();       
+        options.save('sitemap.changefreq',selected,function(result) {
+            arikaim.ui.getComponent('toast').show(result.message);
+        });
     });
-    $('#priority_dropdown').dropdown({
-        onChange: function(value) {
-            options.save('sitemap.priority',value,function(result) {
-                arikaim.page.toastMessage(result.message);
-            });
-        }
+
+    $('#priority_dropdown').on('change', function() {
+        var selected = $(this).val();       
+        options.save('sitemap.priority',selected,function(result) {
+            arikaim.ui.getComponent('toast').show(result.message);
+        });       
     });
 });

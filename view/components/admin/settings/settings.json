@@ -1,8 +1,6 @@
 {
-    "title": {
-        "content": "Settings",
-        "icon": "cogs"
-    },
+    "title":"Settings",        
+    "icon": "icons~cog",
     "labels": {
         "options": "Options",
         "changefreq": "Changefreq",

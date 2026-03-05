@@ -1,13 +1,13 @@
 {% set file_content = service('sitemap').loadRobotsTxt() %}
-<div class="ui two column grid">
-    <div class="column">
-        <div class="ui segment">
+<div class="flex flex-row items-start">
+    <div class="w-1/2">
+        <div class="{{ theme.panel }}">
             {% if file_content == null %}
-                <button class="ui mini blue button create-file">
+                <button class="{{ theme.buttons.green }} create-file">
                     {{ labels.create }}
                 </button>
             {% else %}
-                <button class="ui mini green button save-file">
+                <button class="{{ theme.buttons.green }} save-file">
                     {{ labels.save }}
                 </button>
             {% endif %}
@@ -16,6 +16,6 @@
             {{ file_content|dump }}
         </div>
     </div>
-    <div class="column" id="help_content">
+    <div class="w-1/2 ml-4" id="help_content">
     </div>
 </div>

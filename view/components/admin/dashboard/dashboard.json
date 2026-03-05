@@ -1,5 +1,4 @@
 {
-    "labels": {
-        "title": "Sitemap"          
-    }
+    "title": "Sitemap",        
+    "icon": "icons~map"
 }

@@ -1,6 +1,5 @@
-<div id="{{ component_id }}" class="ui mini horizontal teal statistics">
-    <div class="statistic">
-        <div class="value">{{ service('sitemap').getTotalPageRoutes() }}</div>
-        <div class="label">{{ labels.pages }}</div>       
-    </div>
+<div class="stat">   
+    <div class="stat-title">{{ labels.pages }}</div>
+    <div class="stat-value">{{ service('sitemap').getTotalPageRoutes() }}</div> 
+    <div class="stat-desc">{{ labels.description }}</div>                 
 </div>
